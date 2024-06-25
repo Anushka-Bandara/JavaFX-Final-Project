@@ -1,0 +1,143 @@
+
+.background-image{
+    -fx-background-image: url("img/other/userloginBac.jpg");
+    -fx-background-repeat: stretch;
+}
+
+.transparent-style{
+
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+}
+
+.search-box{
+    -fx-background-color:#FFFFFF;
+    -fx-background-radius: 100;
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.search-button{
+    -fx-background-color: #828282;
+    -fx-background-radius: 30;
+}
+
+.right-bar{
+    -fx-background-color: #D3D3D3;
+}
+
+.payload {
+
+
+    -fx-background-color: #000000;
+    -fx-background-radius: 100px;
+
+    -fx-border-radius: 50px;
+    -fx-border-width: 5px;
+    -fx-border-color: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+.icon-btn {
+
+    -fx-background-radius: 100px;
+
+    -fx-border-radius: 100px;
+    -fx-border-width: 3px;
+    -fx-border-color: #FFFFFF;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+.left-button-bar{
+    -fx-background-color: #000000;
+}
+
+.main-panel{
+    -fx-background-color: #D3D3D3;
+}
+
+.sub-panel{
+    -fx-background-color: #FFFFFF;
+}
+
+.shadow{
+    -fx-effect: dropShadow(three-pass-box,rgba(0,0,0,0.1), 10.0 , 0.0 , 0.0 ,10.0);
+}
+
+.chosen-fruit-card{
+    -fx-background-color: #F16C31;
+    -fx-background-radius: 30;
+}
+
+.comboBox{
+    -fx-background-color: rgba(255,255,255,0.3);
+    -fx-background-radius: 30;
+}
+
+.add-btn{
+    -fx-background-color: #000000;
+    -fx-background-radius: 100;
+}
+
+.remove-btn{
+    -fx-background-color: #d63333;
+    -fx-background-radius: 100;
+}
+
+.free-delivery-card{
+    -fx-background-color: #D3D3D3;
+    -fx-background-radius: 30;
+}
+
+.shopping-online-card{
+    -fx-background-color: #BAEAC3;
+    -fx-background-radius: 30;
+}
+
+.fruit-item{
+    -fx-background-color: #FFFFFF;
+        -fx-background-radius: 30;
+}
+
+.Add-Button{
+-fx-background-color: #FFFFFF;
+}
+.Update-Button{
+    -fx-background-color: #28fc03;
+}
+
+
+.link-text{
+    -fx-text-fill: #055199;
+}
+
+.red{
+    -fx-background-color: #d63333;
+}
+
+.black{
+    -fx-background-color: #000000;
+}
+
+.green{
+    -fx-background-color: #28fc03;
+}
+
+.gray{
+    -fx-background-color: #48494a;
+}
+
+.white{
+    -fx-background-color: #FFFFFF;
+}
+.table-view .column-header-background {
+    -fx-background-color: #000000; /* Black background */
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #FFFFFF; /* White text */
+}
+
+.login-form{
+    -fx-background-radius: 40px;
+}

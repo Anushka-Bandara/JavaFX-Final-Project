@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1064.0" styleClass="background-image" stylesheets="@../../style/Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.user.UserLoginFormController">
+   <children>
+      <ImageView fitHeight="752.0" fitWidth="1137.0" layoutX="-13.0" layoutY="-14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/other/bgimg.jpeg" />
+         </image>
+      </ImageView>
+      <Pane layoutX="-14.0" layoutY="-12.0" prefHeight="764.0" prefWidth="1130.0" styleClass="transparent-style" stylesheets="@../../style/Style.css">
+         <children>
+            <Pane layoutX="343.0" layoutY="153.0" prefHeight="482.0" prefWidth="445.0" stylesheets="@../../style/Style.css">
+               <styleClass>
+                  <String fx:value="white" />
+                  <String fx:value="login-form" />
+               </styleClass>
+               <children>
+                  <JFXTextField fx:id="txtUserName" layoutX="85.0" layoutY="170.0" prefHeight="25.0" prefWidth="233.0" promptText="User Name" unFocusColor="#9e9e9e" />
+                  <JFXButton fx:id="btnLogin" layoutX="189.0" layoutY="313.0" onAction="#btnLoginOnAction" styleClass="black" stylesheets="@../../style/Style.css" text="Login" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </JFXButton>
+                  <Label fx:id="lblForgotPassword" layoutX="263.0" layoutY="271.0" onMouseClicked="#onClickForgotlbl" styleClass="link-text" stylesheets="@../../style/Style.css" text="Forgot Password" underline="true">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="135.0" layoutY="368.0" prefHeight="19.0" prefWidth="175.0" text="Don’t you have an Account" textAlignment="JUSTIFY">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="151.0" layoutY="389.0" prefHeight="20.0" prefWidth="49.0" text=" Please " textAlignment="JUSTIFY">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="250.0" layoutY="389.0" prefHeight="20.0" prefWidth="58.0" text="Admin ?" textAlignment="JUSTIFY">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblContactAdmin" layoutX="198.0" layoutY="389.0" onMouseClicked="#onClickContactAdmin" prefHeight="20.0" prefWidth="49.0" text="Contact" textAlignment="JUSTIFY" underline="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXPasswordField fx:id="txtPasword" layoutX="85.0" layoutY="229.0" prefHeight="25.0" prefWidth="233.0" promptText="Password" unFocusColor="#9e9e9e" />
+               </children>
+            </Pane>
+            <Pane layoutX="14.0" layoutY="8.0" prefHeight="84.0" prefWidth="1118.0" styleClass="black" stylesheets="@../../style/Style.css">
+               <children>
+                  <Label layoutX="135.0" layoutY="27.0" text="Clothify Store" textFill="WHITE">
+                     <font>
+                        <Font name="Calibri" size="24.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="btnIcon" layoutX="50.0" layoutY="13.0" maxHeight="66.0" maxWidth="66.0" minHeight="59.0" minWidth="58.0" onAction="#btnIconOnAction" prefHeight="59.0" prefWidth="58.0" styleClass="icon-btn" stylesheets="@../../style/Style.css" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../img/icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </Pane>
+            <Label layoutX="484.0" layoutY="680.0" text="© iCet Student Project" textFill="#0000008d">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

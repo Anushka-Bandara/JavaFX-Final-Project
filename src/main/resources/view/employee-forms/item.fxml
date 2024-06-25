@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="250.0" prefWidth="200.0" styleClass="sub-panel" stylesheets="@../../style/Style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.ItemController">
+   <children>
+      <VBox layoutX="6.0" layoutY="4.0" prefHeight="256.0" prefWidth="207.0">
+         <children>
+            <Label fx:id="lblProductId" prefHeight="23.0" prefWidth="96.0" text="T ####" textFill="#363434">
+               <font>
+                  <Font name="Calibri" size="24.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="20.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="222.0" prefWidth="273.0">
+               <children>
+                  <ImageView fx:id="imgProduct" fitHeight="194.0" fitWidth="161.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="61.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lblProductPrice" text="Rs . 3000 /=">
+                     <font>
+                        <Font name="Britannic Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

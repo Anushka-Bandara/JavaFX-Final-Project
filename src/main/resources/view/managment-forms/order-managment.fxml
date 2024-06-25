@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1064.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.order.OrderManagmentFormController">
+   <children>
+      <BorderPane prefHeight="640.0" prefWidth="1064.0">
+         <top>
+            <VBox prefHeight="86.0" prefWidth="1070.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="1040.0" styleClass="main-panel" stylesheets="@../../style/Style.css">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="172.0">
+                           <children>
+                              <JFXButton prefHeight="80.0" prefWidth="161.0" text=" ">
+                                 <graphic>
+                                    <ImageView fitHeight="54.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../img/icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="776.0">
+                           <children>
+                              <Label text="Order Managment">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="923.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="298.0">
+                           <children>
+                              <Pane prefHeight="100.0" prefWidth="17.0" />
+                              <Label text="Order ID">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                              </Label>
+                              <Separator orientation="VERTICAL" prefHeight="15.0" prefWidth="17.0">
+                                 <HBox.margin>
+                                    <Insets bottom="30.0" top="30.0" />
+                                 </HBox.margin>
+                              </Separator>
+                              <Label fx:id="lblOrderId" text="O####">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="644.0">
+                           <children>
+                              <Label fx:id="ViewPastOrdersbtn" onDragDetected="#ViewPastOrdersbtnOnAction" onMouseClicked="#ViewPastOrdersbtnOnAction" styleClass="link-text" stylesheets="@../../style/Style.css" text="View Past Orders" underline="true">
+                                 <font>
+                                    <Font name="Calibri" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="428.0" prefWidth="1064.0">
+                     <children>
+                        <Pane prefHeight="361.0" prefWidth="393.0">
+                           <children>
+                              <JFXTextField fx:id="txtQty" layoutX="130.0" layoutY="200.0" promptText="Qty" />
+                              <JFXTextField fx:id="txtPrice" layoutX="130.0" layoutY="163.0" promptText="Price" />
+                              <JFXComboBox fx:id="cmbProductID" layoutX="130.0" layoutY="124.0" onAction="#cmbproductIdonAction" prefHeight="25.0" prefWidth="137.0" promptText="Product ID" />
+                              <JFXButton fx:id="btnAdd" layoutX="175.0" layoutY="260.0" onAction="#btnItemAddOnAction" styleClass="green" stylesheets="@../../style/Style.css" text="Add" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                              <JFXTextField fx:id="txtSize" editable="false" layoutX="129.0" layoutY="98.0" opacity="0.61" promptText="Price" text="Size" visible="false">
+                                 <cursor>
+                                    <Cursor fx:constant="DISAPPEAR" />
+                                 </cursor>
+                              </JFXTextField>
+                              <JFXTextField fx:id="txtCategory" editable="false" layoutX="129.0" layoutY="136.0" opacity="0.61" promptText="Price" text="Category" visible="false">
+                                 <cursor>
+                                    <Cursor fx:constant="DISAPPEAR" />
+                                 </cursor>
+                              </JFXTextField>
+                           </children>
+                        </Pane>
+                        <TableView fx:id="tblCart" prefHeight="361.0" prefWidth="646.0">
+                          <columns>
+                            <TableColumn fx:id="colproductId" prefWidth="109.0" text="ProductID" />
+                            <TableColumn fx:id="colSize" prefWidth="104.0" text="Size" />
+                              <TableColumn fx:id="colCategory" prefWidth="106.0" text="Category" />
+                              <TableColumn fx:id="colPrice" prefWidth="125.0" text="Price" />
+                              <TableColumn fx:id="colQty" prefWidth="65.0" text="Qty" />
+                              <TableColumn fx:id="colsubTotal" prefWidth="136.0" text="SubTotal" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </HBox>
+                  
+               </children>
+            </VBox>
+         </center>
+         <bottom>
+            <HBox alignment="TOP_RIGHT" prefHeight="123.0" prefWidth="1090.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="123.0" prefWidth="552.0">
+                     <children>
+                        <JFXComboBox fx:id="cmbPaymentType" promptText="Payment Type" />
+                        <Pane prefHeight="123.0" prefWidth="124.0" />
+                        <JFXButton fx:id="btnReturnOrder" onAction="#btnReturnOrderOnAction" styleClass="red" stylesheets="@../../style/Style.css" text="Return" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                        <Pane prefHeight="123.0" prefWidth="64.0" />
+                        <JFXButton fx:id="btnPlaceOrder" onAction="#btnPlaceOrderOnAction" prefHeight="30.0" prefWidth="94.0" styleClass="black" stylesheets="@../../style/Style.css" text="Place  Order" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+                  <Pane prefHeight="123.0" prefWidth="73.0" />
+                  <HBox alignment="TOP_CENTER" prefHeight="123.0" prefWidth="228.0">
+                     <children>
+                        <Label text="Total : ">
+                           <font>
+                              <Font name="Calibri Bold" size="18.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label fx:id="lbltotal" text="0.00/=">
+                           <font>
+                              <Font name="Calibri" size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" top="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>

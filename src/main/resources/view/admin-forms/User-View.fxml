@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.user.UserViewFormController">
+   <children>
+      <BorderPane layoutY="-3.0" prefHeight="652.0" prefWidth="1072.0">
+         <top>
+            <VBox prefHeight="0.0" prefWidth="1064.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="48.0" prefWidth="1064.0" styleClass="main-panel" stylesheets="@../../style/Style.css">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <ImageView fitHeight="72.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                 </HBox.margin>
+                                 <image>
+                                    <Image url="@../../img/icon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="87.0" prefWidth="788.0">
+                           <children>
+                              <JFXButton fx:id="backToHomebtn" onAction="#backToHomebtnOnAction" prefHeight="87.0" prefWidth="78.0" text="↩">
+                                 <font>
+                                    <Font name="Calibri Bold" size="48.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="672.0">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="298.0">
+                           <children>
+                              <JFXTextField fx:id="txtUserId">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                              <JFXButton fx:id="btnSearch" onAction="#btnSearchOnAction" prefHeight="31.0" prefWidth="90.0" styleClass="add-btn" stylesheets="@../../style/Style.css" text="Search" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <TableView fx:id="tblUserView" onMouseClicked="#onClicked" prefHeight="384.0" prefWidth="792.0">
+                    <columns>
+                      <TableColumn fx:id="coluserId" prefWidth="135.0" text="UserID" />
+                      <TableColumn fx:id="colname" prefWidth="192.0" text="Name" />
+                        <TableColumn fx:id="colemail" prefWidth="278.0" text="Email" />
+                        <TableColumn fx:id="colrole" prefWidth="186.0" text="Role" />
+                    </columns>
+                  </TableView>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="btnRemove" onAction="#btnRemoveOnAction" styleClass="remove-btn" stylesheets="@../../style/Style.css" text="Remove" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </center>
+         <left>
+            <Pane prefHeight="565.0" prefWidth="140.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="565.0" prefWidth="140.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

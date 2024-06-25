@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1064.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.order.ViewOrdersFormController">
+   <children>
+      <BorderPane prefHeight="672.0" prefWidth="1098.0">
+         <top>
+            <VBox prefHeight="86.0" prefWidth="1070.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="82.0" prefWidth="1040.0" styleClass="main-panel" stylesheets="@../../style/Style.css">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="72.0" prefWidth="178.0">
+                           <children>
+                              <ImageView fitHeight="72.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/icon.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="82.0" prefWidth="776.0">
+                           <children>
+                              <Label text="View Order">
+                                 <font>
+                                    <Font size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <JFXButton fx:id="backToHomebtn" onAction="#backToHomebtnOnAction" prefHeight="73.0" prefWidth="84.0" text="↩">
+                           <font>
+                              <Font name="Calibri Bold" size="48.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER_LEFT" prefHeight="585.0" prefWidth="522.0">
+                     <children>
+                        <TableView fx:id="tblOrders" onMouseClicked="#onclick" prefHeight="276.0" prefWidth="406.0">
+                          <columns>
+                              <TableColumn fx:id="colUserId" prefWidth="91.0" text="User ID" />
+                            <TableColumn fx:id="colOrdreId" prefWidth="87.0" text="Order ID" />
+                            <TableColumn fx:id="colPaymenttype" prefWidth="93.0" text="Payment Type" />
+                              <TableColumn fx:id="colorderDate" prefWidth="110.0" text="Order Date" />
+                              <TableColumn fx:id="colTotal" minWidth="0.0" prefWidth="109.0" text="Total" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets right="30.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="585.0" prefWidth="525.0">
+                     <children>
+                        <TableView fx:id="tblOrderDetails" prefHeight="486.0" prefWidth="502.0">
+                          <columns>
+                            <TableColumn fx:id="colProductId" prefWidth="122.0" text="Product ID" />
+                            <TableColumn fx:id="colSize" prefWidth="96.0" text="Size" />
+                              <TableColumn fx:id="colCategory" prefWidth="98.0" text="Category" />
+                              <TableColumn fx:id="colPrice" minWidth="0.0" prefWidth="126.0" text="Price" />
+                              <TableColumn fx:id="colQty" minWidth="0.0" prefWidth="82.0" text="Qty" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+         <left>
+            <Pane prefHeight="586.0" prefWidth="32.0" BorderPane.alignment="CENTER" />
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="640.0" prefWidth="1064.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.icet.controller.product.ProductManagmentFormController">
+   <children>
+      <BorderPane prefHeight="660.0" prefWidth="1084.0">
+         <top>
+            <VBox prefHeight="0.0" prefWidth="1064.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="48.0" prefWidth="1064.0" styleClass="main-panel" stylesheets="@../../style/Style.css">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="172.0">
+                           <children>
+                              <JFXButton prefHeight="80.0" prefWidth="161.0" text=" ">
+                                 <graphic>
+                                    <ImageView fitHeight="54.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../img/icon.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                           </children>
+                        </HBox>
+                        <Pane prefHeight="82.0" prefWidth="798.0">
+                           <children>
+                              <Label layoutX="2.0" layoutY="18.0" prefHeight="43.0" prefWidth="323.0" text="Product Managment">
+                                 <font>
+                                    <Font name="Calibri" size="36.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <left>
+            <Pane prefHeight="478.0" prefWidth="162.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="478.0" prefWidth="110.0" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <HBox prefHeight="359.0" prefWidth="954.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="492.0" prefWidth="460.0">
+                     <children>
+                        <GridPane alignment="CENTER" prefHeight="302.0" prefWidth="329.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="171.0" minWidth="10.0" prefWidth="145.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="298.0" minWidth="10.0" prefWidth="160.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="298.0" minWidth="10.0" prefWidth="81.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="100.0" minHeight="0.0" prefHeight="43.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="66.0" minHeight="0.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Product ID">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="Size" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="Name" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="Category" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label text="Qty" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <JFXTextField fx:id="txtProductId" prefHeight="25.0" prefWidth="192.0" GridPane.columnIndex="1" />
+                              <JFXTextField fx:id="txtname" prefHeight="25.0" prefWidth="175.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <JFXTextField fx:id="txtSize" prefHeight="25.0" prefWidth="132.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <JFXTextField fx:id="txtQty" prefHeight="25.0" prefWidth="132.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label text="Price" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="txtPrice" prefHeight="25.0" prefWidth="132.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <JFXComboBox fx:id="cmbCategory" prefHeight="25.0" prefWidth="118.0" promptText="select" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <JFXComboBox fx:id="cmbType" prefHeight="25.0" prefWidth="89.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+                  <Pane prefHeight="478.0" prefWidth="144.0" />
+                  <VBox alignment="CENTER" prefHeight="478.0" prefWidth="413.0">
+                     <children>
+                        <Pane prefHeight="342.0" prefWidth="349.0">
+                           <children>
+                              <ImageView fx:id="imageView" fitHeight="330.0" fitWidth="345.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../img/other/addimagehere.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="lblAddImageIcon" layoutX="131.0" layoutY="79.0" onMouseClicked="#handleImageIconClick" prefHeight="59.0" prefWidth="55.0" text="+">
+                                 <font>
+                                    <Font size="68.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <JFXButton fx:id="btnViewProductCatelog" onAction="#btnViewProductCatelogOnAction" prefHeight="41.0" prefWidth="218.0" styleClass="link-text" stylesheets="@../../style/Style.css" text="View Product in Catelog">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </JFXButton>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+         <bottom>
+            <HBox alignment="CENTER_LEFT" prefHeight="106.0" prefWidth="1084.0" BorderPane.alignment="TOP_CENTER">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="632.0">
+                     <children>
+                        <Pane prefHeight="100.0" prefWidth="158.0" />
+                        <JFXButton fx:id="btnAdd" onAction="#btnAddOnAction" prefHeight="44.0" prefWidth="120.0" styleClass="left-button-bar" stylesheets="@../../style/Style.css" text="Add" textFill="WHITE">
+                           <font>
+                              <Font name="Calibri" size="24.0" />
+                           </font>
+                        </JFXButton>
+                        <Pane prefHeight="100.0" prefWidth="16.0" />
+                        <JFXButton fx:id="btnUpdate" onAction="#btnUpdateOnAction" prefHeight="44.0" prefWidth="110.0" styleClass="Update-Button" stylesheets="@../../style/Style.css" text="Update">
+                           <font>
+                              <Font name="Calibri" size="24.0" />
+                           </font>
+                        </JFXButton>
+                        <Pane prefHeight="100.0" prefWidth="16.0" />
+                        <JFXButton fx:id="btnRemove" onAction="#btnRemoveOnAction" prefHeight="44.0" prefWidth="118.0" styleClass="red" stylesheets="@../../style/Style.css" text="Remove">
+                           <font>
+                              <Font name="Calibri" size="24.0" />
+                           </font>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="40.0" />
+               </padding>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>
