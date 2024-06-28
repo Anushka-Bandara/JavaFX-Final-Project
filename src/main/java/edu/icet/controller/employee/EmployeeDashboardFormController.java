@@ -1,6 +1,7 @@
-package edu.icet.controller;
+package edu.icet.controller.employee;
 
 import com.jfoenix.controls.JFXButton;
+import edu.icet.controller.item.ItemController;
 import edu.icet.controller.product.ProductController;
 import edu.icet.model.Product;
 import javafx.animation.TranslateTransition;

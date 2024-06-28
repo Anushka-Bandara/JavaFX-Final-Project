@@ -1,6 +1,5 @@
-package edu.icet.controller.order;
+package edu.icet.controller.orderDetail;
 
-import edu.icet.model.order.Order;
 import edu.icet.model.orderDetail.OrderDetail;
 import edu.icet.util.CrudUtil;
 import javafx.collections.FXCollections;

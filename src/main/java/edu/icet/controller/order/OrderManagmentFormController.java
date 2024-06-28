@@ -3,6 +3,9 @@ package edu.icet.controller.order;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import edu.icet.bo.BoFactory;
+import edu.icet.bo.custom.OrderBo;
+import edu.icet.controller.orderDetail.OrderDetailController;
 import edu.icet.controller.product.ProductController;
 import edu.icet.controller.user.UserController;
 import edu.icet.db.DBConnection;
@@ -11,6 +14,7 @@ import edu.icet.model.order.CartTable;
 import edu.icet.model.order.Order;
 import edu.icet.model.orderDetail.OrderDetail;
 import edu.icet.model.user.User;
+import edu.icet.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,6 +63,8 @@ public class OrderManagmentFormController implements Initializable {
     public JFXTextField txtSize;
     public JFXTextField txtCategory;
     public Label lblOrderId;
+
+    private OrderBo orderBo= BoFactory.getInstance().getBo(BoType.ORDER);
 
     ObservableList<CartTable> list = FXCollections.observableArrayList();
 
@@ -122,15 +128,17 @@ public class OrderManagmentFormController implements Initializable {
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) {
 
-        Boolean isAdded = OrderController.getInstance().placeOrder(
-                new Order(
-                        UserController.loginuser.getUserId(),
-                        lblOrderId.getText(),
-                        getDate(),
-                        cmbPaymentType.getValue(),
-                        getTotal()
-                )
+
+        Order order = new Order(
+                UserController.loginuser.getUserId(),
+                lblOrderId.getText(),
+                getDate(),
+                cmbPaymentType.getValue(),
+                getTotal()
         );
+
+        boolean b = orderBo.saveOrder(order);
+
         List<OrderDetail> orderDetailList = new ArrayList<>();
 
         for (CartTable cartTbl : list) {
@@ -142,7 +150,7 @@ public class OrderManagmentFormController implements Initializable {
             Integer qty = cartTbl.getQty();
             orderDetailList.add(new OrderDetail(oID,productId,size,category,price,qty));
         }
-        if(isAdded){
+        if(b){
             Boolean isAdd = OrderDetailController.getInstance().addOrderDetail(orderDetailList);
             if(isAdd){
                 showAlert(Alert.AlertType.INFORMATION,"OrderAdded","OrderAdded Succesfully");
@@ -154,6 +162,39 @@ public class OrderManagmentFormController implements Initializable {
                 clearFields();
             }
         }
+
+//        Boolean isAdded = OrderController.getInstance().placeOrder(
+//                new Order(
+//                        UserController.loginuser.getUserId(),
+//                        lblOrderId.getText(),
+//                        getDate(),
+//                        cmbPaymentType.getValue(),
+//                        getTotal()
+//                )
+//        );
+//        List<OrderDetail> orderDetailList = new ArrayList<>();
+//
+//        for (CartTable cartTbl : list) {
+//            String oID = lblOrderId.getText();
+//            String productId = cartTbl.getProductId();
+//            String size = cartTbl.getSize();
+//            String category = cartTbl.getCategory();
+//            Double price = cartTbl.getPrice();
+//            Integer qty = cartTbl.getQty();
+//            orderDetailList.add(new OrderDetail(oID,productId,size,category,price,qty));
+//        }
+//        if(isAdded){
+//            Boolean isAdd = OrderDetailController.getInstance().addOrderDetail(orderDetailList);
+//            if(isAdd){
+//                showAlert(Alert.AlertType.INFORMATION,"OrderAdded","OrderAdded Succesfully");
+//                clearFields();
+//                lblOrderId.setText(generateOrderId());
+//                tblCart.setItems(null);
+//            }else {
+//                showAlert(Alert.AlertType.ERROR,"order","Order not Added");
+//                clearFields();
+//            }
+//        }
 
     }
 

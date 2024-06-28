@@ -3,7 +3,7 @@ package edu.icet.controller.product;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import edu.icet.controller.EmployeeDashboardFormController;
+import edu.icet.controller.employee.EmployeeDashboardFormController;
 import edu.icet.model.Product;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

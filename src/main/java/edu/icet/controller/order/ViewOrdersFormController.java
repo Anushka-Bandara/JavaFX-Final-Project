@@ -1,6 +1,7 @@
 package edu.icet.controller.order;
 
 import com.jfoenix.controls.JFXButton;
+import edu.icet.controller.orderDetail.OrderDetailController;
 import edu.icet.model.order.Order;
 import edu.icet.model.order.OrderTbl;
 import edu.icet.model.orderDetail.OrderDetail;
@@ -99,7 +100,7 @@ public class ViewOrdersFormController implements Initializable {
     }
 
     private void loadOrderDetail(String orderId) {
-        ObservableList<OrderDetail> list=OrderDetailController.getInstance().getSelectedId(orderId);
+        ObservableList<OrderDetail> list= OrderDetailController.getInstance().getSelectedId(orderId);
         ObservableList<OrderDetail> tbl = FXCollections.observableArrayList();
 
         list.forEach(orderDetail -> {

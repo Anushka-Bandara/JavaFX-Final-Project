@@ -3,7 +3,7 @@ package edu.icet.controller.admin;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import edu.icet.controller.order.OrderController;
-import edu.icet.controller.order.OrderDetailController;
+import edu.icet.controller.orderDetail.OrderDetailController;
 import edu.icet.controller.product.ProductController;
 import edu.icet.controller.user.UserController;
 import edu.icet.model.user.User;

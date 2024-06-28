@@ -1,4 +1,4 @@
-package edu.icet.controller;
+package edu.icet.controller.item;
 
 
 import edu.icet.model.Product;
@@ -20,6 +20,7 @@ public class ItemController {
             lblProductPrice.setText(String.valueOf("Rs."+ product.getPrice()));
             imgProduct.setImage(img1);
             lblProductId.setText(product.getProductId());
+
 
         } catch (Exception e) {
             System.out.println("Error");

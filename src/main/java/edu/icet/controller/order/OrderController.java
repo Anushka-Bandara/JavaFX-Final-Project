@@ -1,6 +1,9 @@
 package edu.icet.controller.order;
 
+import edu.icet.bo.BoFactory;
+import edu.icet.bo.custom.OrderBo;
 import edu.icet.model.order.Order;
+import edu.icet.util.BoType;
 import edu.icet.util.CrudUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +14,7 @@ import java.sql.SQLException;
 public class OrderController {
 
     private static OrderController instance;
+
 
     private OrderController(){}
 
@@ -43,15 +47,18 @@ public class OrderController {
         }
     }
 
+
     public boolean placeOrder(Order order)  {
-        try {
-            return CrudUtil.execute(
-                    "INSERT INTO Orders (userId,orderId, orderDate, paymentType, total) VALUES (?, ?, ?, ?, ?)",
-                    order.getUserId(),order.getOrderId(),order.getOrderDate(),order.getPaymentType(),order.getTotal());
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
+
+        return false;
+//        try {
+//            return CrudUtil.execute(
+//                    "INSERT INTO Orders (userId,orderId, orderDate, paymentType, total) VALUES (?, ?, ?, ?, ?)",
+//                    order.getUserId(),order.getOrderId(),order.getOrderDate(),order.getPaymentType(),order.getTotal());
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
     }
 
 }
