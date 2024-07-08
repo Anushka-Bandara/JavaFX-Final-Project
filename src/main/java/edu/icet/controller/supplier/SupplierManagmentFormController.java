@@ -2,8 +2,6 @@ package edu.icet.controller.supplier;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import edu.icet.controller.supplier.SupplierController;
-import edu.icet.db.DBConnection;
 import edu.icet.model.supplier.Supplier;
 import edu.icet.model.supplier.Table;
 import javafx.collections.FXCollections;
@@ -76,24 +74,7 @@ public class SupplierManagmentFormController implements Initializable {
     }
 
     private String generateNewSupplierId() {
-        // Implement logic to generate a new supplier ID
-        // For example, fetch the current maximum ID from the database and increment it
-        // Here is a simple example assuming IDs are in the format "S001", "S002", etc.
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT supplierId FROM supplier ORDER BY supplierId DESC LIMIT 1");
-            if (resultSet.next()) {
-                String lastId = resultSet.getString("supplierId");
-                int newId = Integer.parseInt(lastId.substring(1)) + 1;
-                return String.format("S%03d", newId);
-            } else {
-                return "S001"; // Default ID if no suppliers exist
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return "S001"; // Fallback ID
-        }
+        return SupplierController.getInstance().genarateId();
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
@@ -159,9 +140,6 @@ public class SupplierManagmentFormController implements Initializable {
         });
     }
 
-//    public boolean onClickRow(MouseEvent mouseEvent) {
-//        onClickRow(mouseEvent.)//how to get selected row data from table
-//    }
 
     public void btnremoveOnAction(ActionEvent actionEvent) {
         if (selectedSupplierId != null) {

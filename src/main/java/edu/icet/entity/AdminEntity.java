@@ -1,21 +1,19 @@
-package edu.icet.model.order;
+package edu.icet.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OrderTbl {
+@Entity
+public class AdminEntity {
+    @Id
     private String userId;
-    private String orderId;
-    private Date orderDate;
-    private String paymentType;
-    private Double total;
-
+    private String password;
 }

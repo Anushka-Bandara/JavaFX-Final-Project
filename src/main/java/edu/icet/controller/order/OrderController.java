@@ -4,17 +4,15 @@ import edu.icet.bo.BoFactory;
 import edu.icet.bo.custom.OrderBo;
 import edu.icet.model.order.Order;
 import edu.icet.util.BoType;
-import edu.icet.util.CrudUtil;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 public class OrderController {
 
     private static OrderController instance;
 
+    private OrderBo orderBo = BoFactory.getInstance().getBo(BoType.ORDER);
 
     private OrderController(){}
 
@@ -26,39 +24,23 @@ public class OrderController {
     }
 
     public ObservableList<Order> getAllOredres(){
-        try {
-            ResultSet resultSet = CrudUtil.execute("SELECT * FROM orders");
-            ObservableList<Order> listTable = FXCollections.observableArrayList();
-            while (resultSet.next()) {
-                listTable.add(
-                        new Order(
-                                resultSet.getString("userId"),
-                                resultSet.getString("orderID"),
-                                resultSet.getDate("orderDate"),
-                                resultSet.getString("paymentType"),
-                                resultSet.getDouble("total")
-                        )
-                );
-            }
-            return listTable;
-
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        return orderBo.getOrders();
     }
-
 
     public boolean placeOrder(Order order)  {
-
-        return false;
-//        try {
-//            return CrudUtil.execute(
-//                    "INSERT INTO Orders (userId,orderId, orderDate, paymentType, total) VALUES (?, ?, ?, ?, ?)",
-//                    order.getUserId(),order.getOrderId(),order.getOrderDate(),order.getPaymentType(),order.getTotal());
-//        } catch (SQLException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
+        return orderBo.saveOrder(order);
     }
 
+    public String genarateId() {
+
+        String newId = "O001"; // Default ID
+        List<String> list =  orderBo.id();
+
+        if (!list.isEmpty()) {
+            String lastId = list.get(0);
+            int idNumber = Integer.parseInt(lastId.substring(1)) + 1;
+            newId = String.format("O%03d", idNumber);
+        }
+        return newId;
+    }
 }

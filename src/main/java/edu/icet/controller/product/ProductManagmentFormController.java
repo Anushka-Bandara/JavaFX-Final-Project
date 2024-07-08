@@ -68,7 +68,7 @@ public class ProductManagmentFormController implements Initializable {
         //System.out.println(imageView);
     }
 
-    public void btnAddOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    public void btnAddOnAction(ActionEvent actionEvent) {
 
 
         String productId = ProductController.getInstance().genarateId(gettype()) ;
@@ -110,7 +110,7 @@ public class ProductManagmentFormController implements Initializable {
 
     private String gettype() {
         String st = (String) cmbType.getValue();
-        System.out.println(st);
+        //System.out.println(st);
         switch (st){
             case "TShirt":return "T" ;
             case "Shirt":return "S" ;

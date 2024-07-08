@@ -82,6 +82,7 @@ public class ViewOrdersFormController implements Initializable {
         tblData.forEach(order -> {
             tbl.add(
                     new OrderTbl(
+                            order.getUserId(),
                             order.getOrderId(),
                             order.getOrderDate(),
                             order.getPaymentType(),

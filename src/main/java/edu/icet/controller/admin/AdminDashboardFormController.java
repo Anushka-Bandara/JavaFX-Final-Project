@@ -96,53 +96,55 @@ public class AdminDashboardFormController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        AnchorPaneslider.setTranslateX(-259);
-        Menubtn.setOnMouseClicked(event -> {
-            AnchorPaneslider.setVisible(true);
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(AnchorPaneslider);
-
-            slide.setToX(0);
-            slide.play();
-
+        try {
             AnchorPaneslider.setTranslateX(-259);
+            Menubtn.setOnMouseClicked(event -> {
+                AnchorPaneslider.setVisible(true);
+                TranslateTransition slide = new TranslateTransition();
+                slide.setDuration(Duration.seconds(0.4));
+                slide.setNode(AnchorPaneslider);
 
-            slide.setOnFinished((ActionEvent e) -> {
-                Menubtn.setVisible(false);
-                MenuExitbtn.setVisible(true);
+                slide.setToX(0);
+                slide.play();
+
+                AnchorPaneslider.setTranslateX(-259);
+
+                slide.setOnFinished((ActionEvent e) -> {
+                    Menubtn.setVisible(false);
+                    MenuExitbtn.setVisible(true);
+                });
             });
-        });
-        MenuExitbtn.setOnMouseClicked(event -> {
-            TranslateTransition slide = new TranslateTransition();
-            slide.setDuration(Duration.seconds(0.4));
-            slide.setNode(AnchorPaneslider);
+            MenuExitbtn.setOnMouseClicked(event -> {
+                TranslateTransition slide = new TranslateTransition();
+                slide.setDuration(Duration.seconds(0.4));
+                slide.setNode(AnchorPaneslider);
 
-            slide.setToX(-259);
-            slide.play();
+                slide.setToX(-259);
+                slide.play();
 
-            AnchorPaneslider.setTranslateX(0);
+                AnchorPaneslider.setTranslateX(0);
 
-            slide.setOnFinished((ActionEvent e) -> {
-                Menubtn.setVisible(true);
-                MenuExitbtn.setVisible(false);
+                slide.setOnFinished((ActionEvent e) -> {
+                    Menubtn.setVisible(true);
+                    MenuExitbtn.setVisible(false);
+                });
             });
-        });
 
-        colProductID.setCellValueFactory(new PropertyValueFactory<>("productId"));
-        colProductName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colCategory.setCellValueFactory(new PropertyValueFactory<>("Category"));
-        colSize.setCellValueFactory(new PropertyValueFactory<>("Size"));
-        colQty.setCellValueFactory(new PropertyValueFactory<>("Qty"));
-        colPrice.setCellValueFactory(new PropertyValueFactory<>("Price"));
+            colProductID.setCellValueFactory(new PropertyValueFactory<>("productId"));
+            colProductName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            colCategory.setCellValueFactory(new PropertyValueFactory<>("Category"));
+            colSize.setCellValueFactory(new PropertyValueFactory<>("Size"));
+            colQty.setCellValueFactory(new PropertyValueFactory<>("Qty"));
+            colPrice.setCellValueFactory(new PropertyValueFactory<>("Price"));
 
 
-        if(txtinventoryfield.getText().equals("")){
-            loadtableInventory();
-        }
+            if(txtinventoryfield.getText().equals("")){
+                loadtableInventory();
+            }
 
-        loadDailySalesChart();
-        loadDailySalesPieChart();
+            loadDailySalesChart();
+            loadDailySalesPieChart();
+        }catch (Exception e){}
     }
 
 
@@ -291,14 +293,6 @@ public class AdminDashboardFormController implements Initializable {
         monthlySales.put("Mens", 15.0);
         monthlySales.put("Womens", 40.0);
 
-//        orderList.forEach(order -> {
-//            orderDetailList.forEach(orderDetail -> {
-//                if (order.getOrderId().equals(orderDetail.getId())) {
-//                    String category = orderDetail.getCategory();
-//                    monthlySales.put(category, monthlySales.get(category) + orderDetail.getPrice() * orderDetail.getQty());
-//                }
-//            });
-//        });
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Kids", monthlySales.get("Kids")),
@@ -319,14 +313,6 @@ public class AdminDashboardFormController implements Initializable {
         annualSales.put("Mens", 10.0);
         annualSales.put("Womens", 50.0);
 
-//        orderList.forEach(order -> {
-//            orderDetailList.forEach(orderDetail -> {
-//                if (order.getOrderId().equals(orderDetail.getId())) {
-//                    String category = orderDetail.getCategory();
-//                    annualSales.put(category, annualSales.get(category) + orderDetail.getPrice() * orderDetail.getQty());
-//                }
-//            });
-//        });
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 new PieChart.Data("Kids", annualSales.get("Kids")),
@@ -499,20 +485,7 @@ public class AdminDashboardFormController implements Initializable {
 
     }
     public void OrderManagmentbtnOnAction(ActionEvent actionEvent) {
-//        try {
-//            URL resource = getClass().getResource("/view/order-managment.fxml");
-//
-//            FXMLLoader fxmlLoader = new FXMLLoader(resource);
-//            Parent root = fxmlLoader.load();
-//
-//            // Assuming you want to replace the current scene
-//            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-//            stage.setScene(new Scene(root));
-//            stage.show();
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
         if(count==0){
             try {
                 URL resource = getClass().getResource("/view/managment-forms/order-managment.fxml");
@@ -643,7 +616,8 @@ public class AdminDashboardFormController implements Initializable {
         String password=txtUserPassword.getText();
         String role=txtUserRole.getText();
 
-        Boolean isAdd = UserController.getInstance().addUser(new User(userId,name,email,password,role));
+        User user = new User(userId,name,email,password,role);
+        Boolean isAdd = UserController.getInstance().addUser(user);
         if(isAdd){
             showAlert(Alert.AlertType.INFORMATION,"alert","User Added Successfully");
             txtUserId.setText(UserController.getInstance().genarateUserId());

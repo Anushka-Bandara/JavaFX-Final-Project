@@ -1,6 +1,6 @@
 package edu.icet.bo;
 
-import edu.icet.bo.custom.impl.OrdreBoImpl;
+import edu.icet.bo.custom.impl.*;
 import edu.icet.util.BoType;
 
 public class BoFactory implements SuperBo{
@@ -19,6 +19,11 @@ public class BoFactory implements SuperBo{
     public <T extends SuperBo>T getBo(BoType type){
         switch (type){
             case ORDER:return (T) new OrdreBoImpl();
+            case PRODUCT:return (T) new ProductBoImpl();
+            case SUPPLIER:return (T) new SupplierBoImpl();
+            case USER:return (T) new UserBoImpl();
+            case ORDERDETAIL:return (T) new OrderDetailBoImpl();
+            case ADMIN:return (T) new AdminBoImpl();
         }
         System.out.println("hi");
         return null;

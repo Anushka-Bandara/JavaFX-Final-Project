@@ -1,19 +1,27 @@
 package edu.icet.controller.product;
 
-import edu.icet.db.DBConnection;
+import edu.icet.bo.BoFactory;
+import edu.icet.bo.custom.ProductBo;
+
+import edu.icet.entity.ProductEntity;
 import edu.icet.model.Product;
-import edu.icet.util.CrudUtil;
+import edu.icet.util.BoType;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.modelmapper.ModelMapper;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 
 public class ProductController {
     private static ProductController instance;
+
+    private ProductBo productBo = BoFactory.getInstance().getBo(BoType.PRODUCT);
 
     private ProductController(){}
 
@@ -25,37 +33,15 @@ public class ProductController {
     }
 
     public ObservableList<Product> getAllProducts() throws RuntimeException {
-        try {
-            ResultSet resultSet = CrudUtil.execute("SELECT * FROM products");
-            ObservableList<Product> listTable = FXCollections.observableArrayList();
-            while (resultSet.next()) {
-                listTable.add(
-                        new Product(
-                                resultSet.getString("ProductID"),
-                                resultSet.getString("Name"),
-                                resultSet.getString("Size"),
-                                resultSet.getString("Category"),
-                                resultSet.getDouble("Price"),
-                                resultSet.getInt("Qty"),
-                                resultSet.getString("imagePath")
-                        )
-                );
-            }
-            return listTable;
-
-        }  catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        return productBo.getAllProduct();
     }
 
     public ObservableList<String> getProductIds(){
         ObservableList<String> productIdlist = FXCollections.observableArrayList();
         ObservableList<Product> products = getAllProducts();
-
         products.forEach(product -> {
             productIdlist.add(product.getProductId());
         });
-
         return productIdlist;
 
     }
@@ -71,34 +57,23 @@ public class ProductController {
         return null;
     }
 
-    public Boolean saveProduct(Product product) throws SQLException, ClassNotFoundException {
+    public Boolean saveProduct(Product product) {
 
         if(product.getImagePath()==null && product.getName()==null){
             return false;
         }
-        String sql = "INSERT INTO products (" +
-                "ProductID, Name, Size, Category, Price, Qty, ImagePath) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        Boolean isAdd = CrudUtil.execute(
-                sql, product.getProductId(),
-                product.getName(),
-                product.getSize(),
-                product.getCategory(),
-                product.getPrice(),
-                product.getQty(),
-                product.getImagePath());
-
-        return isAdd;
+        return productBo.saveProduct(product);
     }
 
-    public boolean updateProduct(Product product) throws SQLException, ClassNotFoundException {
-        String sql = "UPDATE Products SET Name = ?, Size = ?, Category = ?, Price = ?, Qty = ?, ImagePath = ? WHERE ProductID = ?";
-        return CrudUtil.execute(sql, product.getName(), product.getSize(), product.getCategory(), product.getPrice(), product.getQty(), product.getImagePath(), product.getProductId());
+    public boolean updateProduct(Product product) {
+        return productBo.updateProduct(product);
+   }
+
+    public boolean stockManagment(String productId,Integer Qty) {
+        return productBo.updateStock(productId,Qty);
     }
 
-    public boolean stockManagment(String productId,Integer Qty) throws SQLException, ClassNotFoundException {
-        String sql ="UPDATE Products SET Qty= ? WHERE ProductID = ?";
-        return CrudUtil.execute(sql,Qty,productId);
-    }
+
 
     public Product getSelectProduct(String productId){
         ObservableList<Product> list = getAllProducts();
@@ -110,30 +85,40 @@ public class ProductController {
         return null;
     }
 
-    public boolean deleteProduct(String productId) throws SQLException, ClassNotFoundException {
-        String sql = "DELETE FROM Products WHERE ProductID = ?";
-        return CrudUtil.execute(sql, productId);
+    public boolean deleteProduct(String productId) {
+        return productBo.deleteProduct(productId);
     }
 
     public String genarateId(String type) {
 
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT ProductID FROM products ORDER BY ProductID DESC LIMIT 1");
+        //            Connection connection = DBConnection.getInstance().getConnection();
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery("SELECT ProductID FROM products ORDER BY ProductID DESC LIMIT 1");
 
+        //System.out.println(type);
 
-            if (resultSet.next()) {
-                String lastId = resultSet.getString("ProductID");
-                int newId = Integer.parseInt(lastId.substring(1)) + 1;
-                return String.format(type+"%03d", newId);
-            } else {
-                return type+"001"; // Default ID if no order exist
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return type+"001"; // Fallback ID
+        String newId = type + "001"; // Default ID
+
+        List<String> list =  productBo.id();
+
+        System.out.println(list);
+
+        if (!list.isEmpty()) {
+            String lastId = list.get(0);
+            int idNumber = Integer.parseInt(lastId.substring(1)) + 1;
+            newId = String.format(type + "%03d", idNumber);
         }
 
+//        if (list==null ) {
+//            //String lastId = resultSet.getString("ProductID");
+//            //int newId = Integer.parseInt(lastId.substring(1)) + 1;
+//            //return String.format(type+"%03d", newId);
+//        } else {
+//            return type+"001"; // Default ID if no order exist
+//        }
+        System.out.println(newId);
+        return newId;
+
     }
+
 }

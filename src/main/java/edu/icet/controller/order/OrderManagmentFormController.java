@@ -8,12 +8,10 @@ import edu.icet.bo.custom.OrderBo;
 import edu.icet.controller.orderDetail.OrderDetailController;
 import edu.icet.controller.product.ProductController;
 import edu.icet.controller.user.UserController;
-import edu.icet.db.DBConnection;
 import edu.icet.model.Product;
 import edu.icet.model.order.CartTable;
 import edu.icet.model.order.Order;
 import edu.icet.model.orderDetail.OrderDetail;
-import edu.icet.model.user.User;
 import edu.icet.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -65,6 +63,7 @@ public class OrderManagmentFormController implements Initializable {
     public Label lblOrderId;
 
     private OrderBo orderBo= BoFactory.getInstance().getBo(BoType.ORDER);
+    private ProductController productController = ProductController.getInstance();
 
     ObservableList<CartTable> list = FXCollections.observableArrayList();
 
@@ -75,7 +74,6 @@ public class OrderManagmentFormController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(resource);
             Parent root = fxmlLoader.load();
 
-            // Assuming you want to replace the current scene
             Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -96,7 +94,7 @@ public class OrderManagmentFormController implements Initializable {
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
         colsubTotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
 
-        lblOrderId.setText(generateOrderId());
+        lblOrderId.setText(OrderController.getInstance().genarateId());
         loadInitialValues();
         loadProductIds();
 
@@ -122,80 +120,60 @@ public class OrderManagmentFormController implements Initializable {
     }
 
     public void btnReturnOrderOnAction(ActionEvent actionEvent) {
-        User user = UserController.loginuser;
-        System.out.println(user);
+          orderBo.getOrders();
     }
 
     public void btnPlaceOrderOnAction(ActionEvent actionEvent) {
+        boolean isAdd = false;
 
-
-        Order order = new Order(
-                UserController.loginuser.getUserId(),
-                lblOrderId.getText(),
-                getDate(),
-                cmbPaymentType.getValue(),
-                getTotal()
-        );
-
-        boolean b = orderBo.saveOrder(order);
-
-        List<OrderDetail> orderDetailList = new ArrayList<>();
-
-        for (CartTable cartTbl : list) {
-            String oID = lblOrderId.getText();
-            String productId = cartTbl.getProductId();
-            String size = cartTbl.getSize();
-            String category = cartTbl.getCategory();
-            Double price = cartTbl.getPrice();
-            Integer qty = cartTbl.getQty();
-            orderDetailList.add(new OrderDetail(oID,productId,size,category,price,qty));
+        String userid;
+        try {
+            try{
+                userid = UserController.loginuser.getUserId() ;
+            }catch (Exception e ){
+                userid = "";
+            }
+            Order order = new Order(
+                    lblOrderId.getText(),
+                    userid,
+                    getDate(),
+                    cmbPaymentType.getValue(),
+                    getTotal()
+            );
+             isAdd = OrderController.getInstance().placeOrder(order);
+        }catch(Exception e){
+            showAlert(Alert.AlertType.WARNING,"fill","Fill all fields");
         }
-        if(b){
-            Boolean isAdd = OrderDetailController.getInstance().addOrderDetail(orderDetailList);
-            if(isAdd){
+
+        if(isAdd){
+            List<OrderDetail> orderDetailList = new ArrayList<>();
+
+            for (CartTable cartTbl : list) {
+                String oID = lblOrderId.getText();
+                String productId = cartTbl.getProductId();
+                String size = cartTbl.getSize();
+                String category = cartTbl.getCategory();
+                Double price = cartTbl.getPrice();
+                Integer qty = cartTbl.getQty();
+                orderDetailList.add(new OrderDetail(oID,productId,size,category,price,qty));
+
+                Product product = ProductController.getInstance().getSelectProduct(productId);
+                Integer priviousQty = product.getQty();
+                Integer newQty = priviousQty - qty;
+                productController.stockManagment(productId,newQty);
+            }
+
+            Boolean isadd = OrderDetailController.getInstance().addOrderDetail(orderDetailList);
+            if(isadd){
                 showAlert(Alert.AlertType.INFORMATION,"OrderAdded","OrderAdded Succesfully");
                 clearFields();
-                lblOrderId.setText(generateOrderId());
+                lblOrderId.setText(OrderController.getInstance().genarateId());
                 tblCart.setItems(null);
             }else {
                 showAlert(Alert.AlertType.ERROR,"order","Order not Added");
                 clearFields();
             }
         }
-
-//        Boolean isAdded = OrderController.getInstance().placeOrder(
-//                new Order(
-//                        UserController.loginuser.getUserId(),
-//                        lblOrderId.getText(),
-//                        getDate(),
-//                        cmbPaymentType.getValue(),
-//                        getTotal()
-//                )
-//        );
-//        List<OrderDetail> orderDetailList = new ArrayList<>();
-//
-//        for (CartTable cartTbl : list) {
-//            String oID = lblOrderId.getText();
-//            String productId = cartTbl.getProductId();
-//            String size = cartTbl.getSize();
-//            String category = cartTbl.getCategory();
-//            Double price = cartTbl.getPrice();
-//            Integer qty = cartTbl.getQty();
-//            orderDetailList.add(new OrderDetail(oID,productId,size,category,price,qty));
-//        }
-//        if(isAdded){
-//            Boolean isAdd = OrderDetailController.getInstance().addOrderDetail(orderDetailList);
-//            if(isAdd){
-//                showAlert(Alert.AlertType.INFORMATION,"OrderAdded","OrderAdded Succesfully");
-//                clearFields();
-//                lblOrderId.setText(generateOrderId());
-//                tblCart.setItems(null);
-//            }else {
-//                showAlert(Alert.AlertType.ERROR,"order","Order not Added");
-//                clearFields();
-//            }
-//        }
-
     }
 
     private void clearFields() {
@@ -213,45 +191,44 @@ public class OrderManagmentFormController implements Initializable {
         return Double.parseDouble(numericValueString);
     }
 
-    private String generateOrderId() {
-        try {
-            Connection connection = DBConnection.getInstance().getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT orderId FROM orders ORDER BY orderId DESC LIMIT 1");
-            if (resultSet.next()) {
-                String lastId = resultSet.getString("orderId");
-                int newId = Integer.parseInt(lastId.substring(1)) + 1;
-                return String.format("O%03d", newId);
-            } else {
-                return "O001"; // Default ID if no order exist
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return "O001"; // Fallback ID
-        }
-    }
-
     private Date getDate(){
-        Date date = new Date();
-
-        return (date);
-
+        return (new Date());
     }
 
     public void btnItemAddOnAction(ActionEvent actionEvent) {
-        String userId = UserController.loginuser.getUserId();
-        String productId = (String) cmbProductID.getValue();
-        String size = txtSize.getText();
-        String category = txtCategory.getText();
-        Double price = Double.parseDouble(txtPrice.getText());
-        Integer qty = Integer.parseInt(txtQty.getText());
-        Double subtotal = getItemsTotal(qty,price);
 
-        CartTable cartTable = new CartTable(userId,productId,size,category,price,qty,subtotal);
-        list.add(cartTable);
-        tblCart.setItems(list);
+        String userId;
+        try {
+            try{
+                userId = UserController.loginuser.getUserId() ;
+            }catch (Exception e ){
+                userId = "";
+            }
+            String productId = (String) cmbProductID.getValue();
+            String size = txtSize.getText();
+            String category = txtCategory.getText();
+            Double price = Double.parseDouble(txtPrice.getText());
+            Integer qty = Integer.parseInt(txtQty.getText());
+            Double subtotal = getItemsTotal(qty,price);
 
-        setTotal(subtotal);
+            Integer AvailableQty = productController.getSelectProduct(productId).getQty();
+
+            if(qty<AvailableQty){
+                CartTable cartTable = new CartTable(userId,productId,size,category,price,qty,subtotal);
+                list.add(cartTable);
+                tblCart.setItems(list);
+
+                setTotal(subtotal);
+                cmbProductID.setValue(null);
+                txtPrice.setText("");
+                txtQty.setText("");
+            }else{
+                showAlert(Alert.AlertType.ERROR,"Invalid Qty","Available only "+AvailableQty+" Qty in Stock");
+            }
+
+        }catch (Exception e){
+            showAlert(Alert.AlertType.ERROR,"Not add","Can't Add Product");
+        }
     }
 
     private void setTotal(Double subtotal) {
@@ -267,12 +244,13 @@ public class OrderManagmentFormController implements Initializable {
     }
 
     public void cmbproductIdonAction(ActionEvent actionEvent) {
-        String pId = (String) cmbProductID.getValue();
-        Product product = ProductController.getInstance().getSize(pId);
-
-        txtSize.setText(product.getSize());
-        txtCategory.setText(product.getCategory());
-
+        try{
+            String pId = (String) cmbProductID.getValue();
+            Product product = productController.getSelectProduct(pId);
+            txtPrice.setText(String.valueOf(product.getPrice()));
+            txtSize.setText(product.getSize());
+            txtCategory.setText(product.getCategory());
+        }catch (Exception e){}
 
     }
     private void showAlert(Alert.AlertType alertType, String title, String message) {

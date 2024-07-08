@@ -1,8 +1,9 @@
 package edu.icet.dao.custom.impl;
 
-import edu.icet.dao.custom.OrderDao;
+import edu.icet.dao.custom.UserDao;
 import edu.icet.entity.OrderEntity;
-
+import edu.icet.entity.ProductEntity;
+import edu.icet.entity.UserEntity;
 import edu.icet.util.HibernateUtil;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -14,15 +15,12 @@ import org.hibernate.query.Query;
 
 import java.util.List;
 
-public class OrderDaoImpl implements OrderDao {
-
-
+public class UserDaoImpl implements UserDao {
     @Override
     public List<String> id() {
-
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        String hql = "SELECT p.orderId FROM OrderEntity p ORDER BY p.orderId DESC";
+        String hql = "SELECT p.userId FROM UserEntity p ORDER BY p.userId DESC";
         Query<String> query = session.createQuery(hql, String.class);
         query.setMaxResults(1);
         List<String> resultList = query.list();
@@ -30,8 +28,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean save(OrderEntity entity) {
-
+    public boolean save(UserEntity entity) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
         session.persist(entity);
@@ -40,43 +37,37 @@ public class OrderDaoImpl implements OrderDao {
         return true;
     }
 
-    public boolean load(){
-        Session session = HibernateUtil.getSession();
-        OrderEntity entity = session.load(OrderEntity.class,"O001");
-        System.out.println(entity);
-        return true;
-    }
-
-    public List<OrderEntity> getAll(){
+    @Override
+    public List<UserEntity> getAll() {
         Session session = HibernateUtil.getSession();
         CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<OrderEntity> cq = cb.createQuery(OrderEntity.class);
-        Root<OrderEntity> rootEntry = cq.from(OrderEntity.class);
-        CriteriaQuery<OrderEntity> all = cq.select(rootEntry);
+        CriteriaQuery<UserEntity> cq = cb.createQuery(UserEntity.class);
+        Root<UserEntity> rootEntry = cq.from(UserEntity.class);
+        CriteriaQuery<UserEntity> all = cq.select(rootEntry);
 
-        TypedQuery<OrderEntity> allQuery = session.createQuery(all);
+        TypedQuery<UserEntity> allQuery = session.createQuery(all);
         //System.out.println(allQuery.getResultList());
 
         return allQuery.getResultList();
     }
 
-    public boolean update(OrderEntity entity){
+    @Override
+    public boolean update(UserEntity entity) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        session.get(OrderEntity.class,entity.getOrderId());
+        session.get(UserEntity.class,entity.getUserId());
         session.save(entity);
         session.getTransaction().commit();
         session.close();
-
-        //System.out.println(entity);
         return true;
     }
+
 
     @Override
     public boolean delete(String id) {
         Session session = HibernateUtil.getSession();
         session.getTransaction().begin();
-        OrderEntity entity = session.get(OrderEntity.class,id);
+        UserEntity entity = session.get(UserEntity.class,id);
         session.delete(entity);
         session.getTransaction().commit();
         session.close();

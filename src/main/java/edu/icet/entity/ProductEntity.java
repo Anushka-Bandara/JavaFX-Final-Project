@@ -7,19 +7,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Entity
-public class OrderEntity {
+public class ProductEntity {
     @Id
-    private String orderId;
-    private String userId;
-    private Date orderDate;
-    private String paymentType;
-    private Double total;
-
+    private String productId;
+    private String name;
+    private String size;
+    private String category;
+    private Double price;
+    private Integer qty;
+    private String imagePath;
 }

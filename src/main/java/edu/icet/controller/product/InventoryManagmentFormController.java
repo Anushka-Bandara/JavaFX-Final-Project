@@ -52,14 +52,13 @@ public class InventoryManagmentFormController implements Initializable {
         });
     }
 
-    public void btnAddStckOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    public void btnAddStckOnAction(ActionEvent actionEvent){
 
         String productId = txtProductId.getText();
         Product product = ProductController.getInstance().getSelectProduct(productId);
         Integer priviousQty = product.getQty();
         Integer newQty = Integer.parseInt(txtStock.getText());
         newQty+=priviousQty;
-
         Boolean b = ProductController.getInstance().stockManagment(productId,newQty);
         if(b){
             showAlert(Alert.AlertType.INFORMATION,"Added","Stock Added");
@@ -67,7 +66,7 @@ public class InventoryManagmentFormController implements Initializable {
         loadInventoryTable();
     }
 
-    public void btnUpdateStockOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    public void btnUpdateStockOnAction(ActionEvent actionEvent) {
         String productId = txtProductId.getText();
         Integer Qty = Integer.parseInt(txtStock.getText());
         Boolean b = ProductController.getInstance().stockManagment(productId,Qty);

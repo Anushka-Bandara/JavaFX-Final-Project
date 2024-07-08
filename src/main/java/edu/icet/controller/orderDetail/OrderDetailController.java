@@ -1,7 +1,9 @@
 package edu.icet.controller.orderDetail;
 
+import edu.icet.bo.BoFactory;
+import edu.icet.bo.custom.OrderDetailBo;
 import edu.icet.model.orderDetail.OrderDetail;
-import edu.icet.util.CrudUtil;
+import edu.icet.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -12,6 +14,8 @@ import java.util.List;
 public class OrderDetailController {
     private static OrderDetailController instance;
 
+    private OrderDetailBo orderDetailBo = BoFactory.getInstance().getBo(BoType.ORDERDETAIL);
+
     private OrderDetailController(){}
 
     public static OrderDetailController getInstance(){
@@ -20,6 +24,7 @@ public class OrderDetailController {
         }
         return instance;
     }
+
 
     public boolean addOrderDetail(List<OrderDetail> orderDetailList){
         boolean isAdd=false;
@@ -31,45 +36,28 @@ public class OrderDetailController {
         }
         return false;
     }
+
     private boolean addOrderDetail(OrderDetail orderDetail){
 
-        try {
-            Object isAdd = CrudUtil.execute(
-                    "INSERT INTO orderdetails VALUES(?, ?, ?, ?,?,?)",
-                    orderDetail.getOrderId(),
-                    orderDetail.getProductId(),
-                    orderDetail.getSize(),
-                    orderDetail.getCategory(),
-                    orderDetail.getPrice(),
-                    orderDetail.getQty()
-            );
-            return (Boolean) isAdd;
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        return orderDetailBo.save(orderDetail);
+//        try {
+//            Object isAdd = CrudUtil.execute(
+//                    "INSERT INTO orderdetails VALUES(?, ?, ?, ?,?,?)",
+//                    orderDetail.getOrderId(),
+//                    orderDetail.getProductId(),
+//                    orderDetail.getSize(),
+//                    orderDetail.getCategory(),
+//                    orderDetail.getPrice(),
+//                    orderDetail.getQty()
+//            );
+//            return (Boolean) isAdd;
+//        } catch (SQLException | ClassNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     public ObservableList<OrderDetail> getAllOrderDetails(){
-        try {
-            ResultSet resultSet = CrudUtil.execute("SELECT * FROM orderDetails");
-            ObservableList<OrderDetail> listTable = FXCollections.observableArrayList();
-            while (resultSet.next()) {
-                listTable.add(
-                        new OrderDetail(
-                                resultSet.getString("orderId"),
-                                resultSet.getString("productId"),
-                                resultSet.getString("size"),
-                                resultSet.getString("category"),
-                                resultSet.getDouble("price"),
-                                resultSet.getInt("qty")
-                        )
-                );
-            }
-            return listTable;
-
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        return orderDetailBo.getAll();
     }
 
     public ObservableList<OrderDetail> getSelectedId(String orderId){

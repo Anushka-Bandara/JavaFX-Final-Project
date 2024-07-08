@@ -1,15 +1,20 @@
 package edu.icet.controller.supplier;
 
+import edu.icet.bo.BoFactory;
+import edu.icet.bo.custom.SupplierBo;
 import edu.icet.model.supplier.Supplier;
-import edu.icet.util.CrudUtil;
+import edu.icet.util.BoType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class SupplierController {
     private static SupplierController instance;
+
+    private SupplierBo supplierBo = BoFactory.getInstance().getBo(BoType.SUPPLIER);
 
     private SupplierController(){}
 
@@ -21,52 +26,31 @@ public class SupplierController {
     }
 
     public boolean add(Supplier supplier) {
-        try {
-            return CrudUtil.execute("INSERT INTO supplier (supplierId, name, company, email) VALUES (?, ?, ?, ?)",
-                    supplier.getSupplierId(), supplier.getName(), supplier.getCompany(), supplier.getEmail());
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
+        return supplierBo.saveSupplier(supplier);
     }
 
     public ObservableList<Supplier> getAll(){
-        try {
-            ResultSet resultSet = CrudUtil.execute("SELECT * FROM supplier");
-            ObservableList<Supplier> listTable = FXCollections.observableArrayList();
-            while (resultSet.next()) {
-                listTable.add(
-                        new Supplier(
-                                resultSet.getString("supplierId"),
-                                resultSet.getString("name"),
-                                resultSet.getString("company"),
-                                resultSet.getString("email")
-                        )
-                );
-            }
-            return listTable;
-
-        }  catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+       return supplierBo.getAllSuppliers();
     }
 
     public boolean update(Supplier supplier) {
-        try {
-            return CrudUtil.execute("UPDATE supplier SET name = ?, company = ?, email = ? WHERE supplierId = ?",
-                    supplier.getName(), supplier.getCompany(), supplier.getEmail(), supplier.getSupplierId());
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
+        return supplierBo.updateSupplier(supplier);
     }
 
     public boolean delete(String Id){
-        try {
-            return CrudUtil.execute("DELETE FROM supplier WHERE supplierId = ?", Id);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
+        return supplierBo.deleteSupplier(Id);
+    }
+
+    public String genarateId() {
+
+        String newId = "S001"; // Default ID
+        List<String> list =  supplierBo.id();
+
+        if (!list.isEmpty()) {
+            String lastId = list.get(0);
+            int idNumber = Integer.parseInt(lastId.substring(1)) + 1;
+            newId = String.format("S%03d", idNumber);
         }
+        return newId;
     }
 }

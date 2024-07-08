@@ -13,8 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class Order {
-    private String userId;
     private String orderId;
+    private String userId;
     private Date orderDate;
     private String paymentType;
     private Double total;

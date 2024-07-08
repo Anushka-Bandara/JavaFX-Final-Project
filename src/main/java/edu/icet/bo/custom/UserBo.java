@@ -1,0 +1,22 @@
+package edu.icet.bo.custom;
+
+import edu.icet.bo.SuperBo;
+import edu.icet.model.user.User;
+import javafx.collections.ObservableList;
+
+import java.util.List;
+
+public interface UserBo extends SuperBo {
+
+    List<String> id();
+     boolean saveUser(User dto);
+
+     ObservableList<User> getAllUsers();
+
+     void getSelectUser();
+
+     boolean updateUser(User dto);
+
+    boolean deleteUser(String id);
+
+}

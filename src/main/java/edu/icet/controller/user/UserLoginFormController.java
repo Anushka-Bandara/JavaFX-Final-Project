@@ -78,4 +78,8 @@ public class UserLoginFormController {
             e.printStackTrace();
         }
     }
+
+    public void txtPasswordFieldOnAction(ActionEvent actionEvent) {
+        btnLoginOnAction(actionEvent);
+    }
 }
