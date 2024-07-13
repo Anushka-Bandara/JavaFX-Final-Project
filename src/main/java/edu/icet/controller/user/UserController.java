@@ -89,14 +89,37 @@ public class UserController {
 
     }
 
-    public User getSelecttUser(String productId) {
-        ObservableList<User> list = getAllUserinfo();
-        for (User user : list) {
-            if (productId.equals(user.getUserId())) {
-                return user;
+    public boolean MailConfirm (String UserID,String Email) {
+        try {
+            ObservableList<User> list = getAllUser();
+            for (User user : list) {
+                if (UserID.equals(user.getUserId()) && Email.equals(user.getEmail())) {
+                    return true;
+                }
             }
+            return false;
+        } catch (Exception e) {
+            return false;
         }
-        return null;
+    }
+
+    public User SelectUser(String uId){
+        try {
+            ObservableList<User> list = getAllUser();
+            for (User user : list) {
+                if (uId.equals(user.getUserId())){
+                    return user;
+                }
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public boolean passwordChange(String uId,String pass){
+
+        return userBo.updateUser(uId,pass);
     }
 
     public boolean removeUser(String userId) {

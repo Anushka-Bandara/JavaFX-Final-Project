@@ -363,12 +363,13 @@
                                                       </HBox>
                                                    </children>
                                                 </HBox>
-                                                <TableView prefHeight="338.0" prefWidth="684.0">
+                                                <TableView fx:id="tblOrder" prefHeight="338.0" prefWidth="684.0">
                                                    <columns>
-                                                      <TableColumn prefWidth="192.0" text="Order ID" />
-                                                      <TableColumn prefWidth="201.0" text="Payment Type" />
-                                                      <TableColumn minWidth="0.0" prefWidth="241.0" text="Order Date" />
-                                                      <TableColumn minWidth="0.0" prefWidth="188.0" text="Total" />
+                                                      <TableColumn fx:id="colOId" prefWidth="192.0" text="Order ID" />
+                                                      <TableColumn fx:id="colPType" prefWidth="201.0" text="Payment Type" />
+                                                      <TableColumn fx:id="colOrderDate" minWidth="0.0" prefWidth="241.0" text="Order Date" />
+                                                      <TableColumn fx:id="colTotal" minWidth="0.0" prefWidth="185.0" text="Total" />
+                                                      <TableColumn fx:id="colTotal1" minWidth="0.0" prefWidth="3.0" text="Total" visible="false" />
                                                    </columns>
                                                 </TableView>
                                              </children>

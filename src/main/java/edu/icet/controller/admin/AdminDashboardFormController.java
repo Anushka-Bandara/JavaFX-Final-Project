@@ -6,6 +6,7 @@ import edu.icet.controller.order.OrderController;
 import edu.icet.controller.orderDetail.OrderDetailController;
 import edu.icet.controller.product.ProductController;
 import edu.icet.controller.user.UserController;
+import edu.icet.model.order.OrderTbl;
 import edu.icet.model.user.User;
 import edu.icet.model.inventory.InventoryTable;
 import edu.icet.model.Product;
@@ -91,6 +92,12 @@ public class AdminDashboardFormController implements Initializable {
     public JFXButton btnAddUser;
     public JFXButton btnUpdateUser;
     public JFXTextField txtUserRole;
+    public TableView tblOrder;
+    public TableColumn colOId;
+    public TableColumn colPType;
+    public TableColumn colOrderDate;
+    public TableColumn colTotal;
+    public TableColumn colTotal1;
 
 
     @Override
@@ -137,6 +144,12 @@ public class AdminDashboardFormController implements Initializable {
             colQty.setCellValueFactory(new PropertyValueFactory<>("Qty"));
             colPrice.setCellValueFactory(new PropertyValueFactory<>("Price"));
 
+            colOId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
+            colPType.setCellValueFactory(new PropertyValueFactory<>("orderDate"));
+            colOrderDate.setCellValueFactory(new PropertyValueFactory<>("paymentType"));
+            colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+            colTotal1.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
 
             if(txtinventoryfield.getText().equals("")){
                 loadtableInventory();
@@ -156,11 +169,20 @@ public class AdminDashboardFormController implements Initializable {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        orderList.forEach(order -> {
+        Double previousTotal = 0.0;
+        String previousDate = "";
+        for(Order order : orderList) {
             String dateString = dateFormat.format(order.getOrderDate());
 
-            XYChart.Data<String, Double> data = new XYChart.Data<>(dateString, order.getTotal());
+            if(dateString.equals(previousDate)){
+                previousTotal += order.getTotal();
+            }else{
+                previousTotal = order.getTotal();
+            }
 
+            XYChart.Data<String, Double> data = new XYChart.Data<>(dateString, previousTotal);
+
+            previousDate = dateString;
             // Set color for the bar
             data.nodeProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue != null) {
@@ -168,7 +190,7 @@ public class AdminDashboardFormController implements Initializable {
                 }
             });
             series.getData().add(data);
-        });
+        }
 
         barChartD.getData().clear();
         barChartD.getData().add(series);
@@ -255,9 +277,9 @@ public class AdminDashboardFormController implements Initializable {
 
 
         Map<String, Double> dailySales = new HashMap<>();
-        dailySales.put("Kids", 10.0);
-        dailySales.put("Mens", 20.0);
-        dailySales.put("Womens", 60.0);
+        dailySales.put("Kids", 1.0);
+        dailySales.put("Mens", 80.0);
+        dailySales.put("Womens", 20.0);
 
         orderList.forEach(order -> {
 
@@ -281,7 +303,6 @@ public class AdminDashboardFormController implements Initializable {
 
         pieChartD.setData(pieChartData);
     }
-
 
     // Method to load monthly sales pie chart
     private void loadMonthlySalesPieChart() {
@@ -387,6 +408,25 @@ public class AdminDashboardFormController implements Initializable {
         UserRegistrationPane.setVisible(false);
         InventoryStatusPane.setVisible(false);
         RecentOrdersPane.setVisible(true);
+        loadOrderTbl();
+
+    }
+    private void loadOrderTbl() {
+        ObservableList<Order> tblData = OrderController.getInstance().getAllOredres();
+        ObservableList<OrderTbl> tbl = FXCollections.observableArrayList();
+
+        tblData.forEach(order -> {
+            tbl.add(
+                    new OrderTbl(
+                            "",
+                            order.getOrderId(),
+                            order.getOrderDate(),
+                            order.getPaymentType(),
+                            order.getTotal()
+                    )
+            );
+            tblOrder.setItems(tbl);
+        });
     }
 
     public void MenuClose() {

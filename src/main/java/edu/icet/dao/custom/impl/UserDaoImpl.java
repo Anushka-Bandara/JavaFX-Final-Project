@@ -73,4 +73,16 @@ public class UserDaoImpl implements UserDao {
         session.close();
         return true;
     }
+
+    @Override
+    public boolean updatePassword(String userId, String password) {
+        Session session = HibernateUtil.getSession();
+        session.getTransaction().begin();
+        UserEntity entity = session.get(UserEntity.class,userId);
+        entity.setPassword(password);
+        session.save(entity);
+        session.getTransaction().commit();
+        session.close();
+        return true;
+    }
 }

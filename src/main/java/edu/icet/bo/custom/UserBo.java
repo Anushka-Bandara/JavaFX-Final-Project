@@ -13,9 +13,7 @@ public interface UserBo extends SuperBo {
 
      ObservableList<User> getAllUsers();
 
-     void getSelectUser();
-
-     boolean updateUser(User dto);
+     boolean updateUser(String userId,String pass);
 
     boolean deleteUser(String id);
 

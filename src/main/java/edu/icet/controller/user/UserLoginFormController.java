@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -57,6 +58,24 @@ public class UserLoginFormController {
     }
 
     public void onClickForgotlbl(MouseEvent mouseEvent) {
+        try {
+            URL resource = getClass().getResource("/view/forgot-password.fxml");
+            //how to set the resourses url to last opened fxml file path
+
+            FXMLLoader fxmlLoader = new FXMLLoader(resource);
+            Parent root = fxmlLoader.load();
+
+            // Assuming you want to replace the current scene
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+//            stage.setOnHidden((WindowEvent event) -> count = 0);
+//            stage.setOnCloseRequest((WindowEvent event) -> count = 0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onClickContactAdmin(MouseEvent mouseEvent) {

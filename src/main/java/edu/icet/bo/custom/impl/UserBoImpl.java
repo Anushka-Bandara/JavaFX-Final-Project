@@ -40,14 +40,10 @@ public class UserBoImpl implements UserBo {
         return users;
     }
 
-    @Override
-    public void getSelectUser() {
-
-    }
 
     @Override
-    public boolean updateUser(User dto) {
-        return userDao.update(new ModelMapper().map(dto, UserEntity.class));
+    public boolean updateUser(String uId , String pass) {
+        return userDao.updatePassword(uId, pass);
     }
 
     @Override
