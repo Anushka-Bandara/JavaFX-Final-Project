@@ -20,9 +20,9 @@ public class EmailController {
     public  String sendMail(String email) {
 
         // Email credentials
-        final String from = "miniduanushka2003@gmail.com"; // replace with your email
-        final String username = "miniduanushka2003@gmail.com"; // replace with your email
-        final String password = "epwt dupi glcw rvyp "; // replace with your password
+        final String from = ""; // replace with your email
+        final String username = ""; // replace with your email
+        final String password = ""; // replace with your password
 
         // Email properties
         Properties props = new Properties();
